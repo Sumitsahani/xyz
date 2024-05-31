@@ -1,0 +1,42 @@
+1.What is a NoSQL Database, and explain the types of NoSQL database?
+Non Relational Database Systems (NoSQL) — are used mainly for unstructured or semi-structured data at scale Document-Oriented, 
+Key-Value Stores, Wide-Column Stores: Graph Databases
+
+2.What is the difference between SQL and NoSQL databases?
+SQL databases are relational and have a fixed schema, which means that records of all the values to be inserted must first exist in memory. 
+Relational vs Non-RelationalWhen it comes to relational databases, the use of SQL will be required and this means less scalability as well.
+Contrastingly, NoSQL databases are non-relational with a dynamic schema for unstructured data which makes them perfect when needing scalable options.
+
+3.How to choose between MongoDB and MySQL based on your requirements?
+Choose MongoDB for flexibility and scalability with unstructured data, and MySQL for structured data and transactions requiring ACID compliance.
+
+4.What are collections and documents in a MongoDB database?
+Collections contain MongoDB documents, which are individual record or data objects with fields in a JSON-like format.
+
+5.What is BSON? What is the difference between BSON and JSON?
+BSON: BSON (Binary J-SOn) is JSON like formatted for storing or transferring data across machines. For all the additional data types and efficiency, there is BSON.
+
+6.What are MongoDB Compass and MongoDB Shell used for?
+Introducing MongoDB Compass, the Easiest Way to Explore Your Data You can interact with a MongoDB database using the command-line interface known as MongoDB Shell.
+
+7.How to create collections in MongoDB?
+Use the db. Invoke createCollection() method in MongoDB to do this.
+
+8.What is the difference between insertMany and insertOne?
+insertMany() -> Inserts Multiple Documents
+insertOne() -> Inserts Single Documents
+
+9.What is the difference between deleteOne and deleteMany?
+deleteOne() -> deletes a single document that matches the specified filter criteria 
+deleteMany() ->deletes all documents that match the filter criteria.
+
+10.How to read data in MongoDB? What is the difference between find and findOne?
+Use find() to retrieve multiple documents matching a query, and findOne() to retrieve the first document matching a query.
+
+11.What is $set in MongoDB?
+$set is an update operator in MongoDB used to modify the values of existing fields or add new fields to a document.
+
+12.How to filter data using MongoDB?
+How to filter data in MongoDB? Use the find() method with query operators like $eq, $gt, $lt, etc., to specify filtering criteria. 
+For example, db.collection.find({ field: { $gt: value } }) to retrieve documents where the "field" value is greater than the specified "value".
+

@@ -1,0 +1,210 @@
+1. Find emp with an id greater than or equal to 10:
+   
+COMMAND: db.emp.find({ id: { $gte: 10 } })
+   
+
+2. Find all emp who work in either the "Engineering" or "Marketing" departments:
+   
+COMMAND: db.emp.find({ department: { $in: ["Engineering", "Marketing"] } })
+   
+
+3. Find emp whose gender is in ["Female", "Agender", "Non-binary"]:
+   
+COMMAND: db.emp.find({ gender: { $in: ["Female", "Agender", "Non-binary"] } })
+   
+
+4. Find emp whose department is not in ["Services", "Human Resources"]:
+   
+COMMAND: db.emp.find({ department: { $nin: ["Services", "Human Resources"] } })
+   
+
+5. Find emp whose gender is not in ["Male", "Female"]:
+   
+COMMAND: db.emp.find({ gender: { $nin: ["Male", "Female"] } })
+   
+
+6. Find emp who have a salary greater than 40000 and work in the "Marketing" department:
+   
+COMMAND: db.emp.find({ salary: { $gt: 40000 }, department: "Marketing" })
+   
+
+7. Find emp whose id is less than 10 and gender is "Male":
+   
+COMMAND: db.emp.find({ id: { $lt: 10 }, gender: "Male" })
+   
+
+8. Find emp who either have a salary less than 30000 or work in the "Training" department:
+   
+COMMAND: db.emp.find({ $or: [{ salary: { $lt: 30000 } }, { department: "Training" }] })
+   
+
+9. Find emp whose id is either 1, 5, or 10:
+   
+COMMAND: db.emp.find({ id: { $in: [1, 5, 10] } })
+   
+
+10. Find all emp whose salary is not less than 60000:
+    
+    COMMAND: db.emp.find({ salary: { $gte: 60000 } })
+    
+
+11. Find emp whose id is not greater than 15:
+    
+    COMMAND: db.emp.find({ id: { $lte: 15 } })
+    
+
+12. Find emp who have the email field:
+    
+    COMMAND: db.emp.find({ email: { $exists: true } })
+    
+
+13. Find documents where the projects field does not exist:
+    
+    COMMAND: db.emp.find({ projects: { $exists: false } })
+    
+
+14. Retrieve all emp who work in the 'Sales' department, earn more than $60,000, and whose name contains the letter 'r'. Display their names in uppercase, ordered by salary in descending order. Limit the result to 3 entries:
+    
+    COMMAND: db.emp.find({ 
+      department: 'Sales', 
+      salary: { $gt: 60000 }, 
+      name: /r/ 
+    }, { 
+      name: 1, salary: 1 
+    }).sort({ salary: -1 }).limit(3).map(employee => ({
+      name: employee.name.toUpperCase(),
+      salary: employee.salary
+    }))
+    
+
+15. Find emp whose name starts with 'H' and who earn a salary that is either exactly $66,433 or more than $70,000. Display their name in uppercase, email, and salary, sorted by salary in ascending order:
+    
+    COMMAND: db.emp.find({ 
+      name: /^H/, 
+      $or: [{ salary: 66433 }, { salary: { $gt: 70000 } }] 
+    }, { 
+      name: 1, email: 1, salary: 1 
+    }).sort({ salary: 1 }).map(employee => ({
+      name: employee.name.toUpperCase(),
+      email: employee.email,
+      salary: employee.salary
+    }))
+    
+
+16. Retrieve the name, email, and department of emp whose salary is between $30,000 and $70,000 and contains the letter 'e' in their name. Display the results in uppercase and sort them by department:
+    
+    COMMAND: db.emp.find({ 
+      salary: { $gte: 30000, $lte: 70000 }, 
+      name: /e/ 
+    }, { 
+      name: 1, email: 1, department: 1 
+    }).sort({ department: 1 }).map(employee => ({
+      name: employee.name.toUpperCase(),
+      email: employee.email.toUpperCase(),
+      department: employee.department.toUpperCase()
+    }))
+    
+
+17. Retrieve all emp who work in the 'Sales' department, earn more than $60,000, and whose name contains the letter 'r'. Display their names in uppercase, ordered by salary in descending order. Limit the result to 3 entries:
+    
+    COMMAND: db.emp.find({ 
+      department: 'Sales', 
+      salary: { $gt: 60000 }, 
+      name: /r/ 
+    }, { 
+      name: 1, salary: 1 
+    }).sort({ salary: -1 }).limit(3).map(employee => ({
+      name: employee.name.toUpperCase(),
+      salary: employee.salary
+    }))
+    
+
+18. Find all emp whose email domain is either 'intel.com' or 'bloglines.com', whose salary is above $60,000. Display their names in lowercase and order the results by name in ascending order, excluding duplicates:
+    
+    COMMAND: db.emp.find({ 
+      email: { $regex: /@(intel\.com|bloglines\.com)$/ }, 
+      salary: { $gt: 60000 } 
+    }, { 
+      name: 1 
+    }).sort({ name: 1 }).distinct('name').map(name => name.toLowerCase())
+    
+
+19. Retrieve all female emp who work in the 'Marketing' department, earn between $30,000 and $35,000, and whose name starts with the letter 'U'. Display their names in uppercase and sort them by salary in ascending order:
+    
+    COMMAND: db.emp.find({ 
+      gender: 'Female', 
+      department: 'Marketing', 
+      salary: { $gte: 30000, $lte: 35000 }, 
+      name: /^U/ 
+    }, { 
+      name: 1, salary: 1 
+    }).sort({ salary: 1 }).map(employee => ({
+      name: employee.name.toUpperCase(),
+      salary: employee.salary
+    }))
+    
+
+20. Retrieve all emp whose salary is less than $50,000, whose name contains 'a', and who do not work in 'Services'. Display their names and salaries sorted by department and then by salary in descending order:
+    
+    COMMAND: db.emp.find({ 
+      salary: { $lt: 50000 }, 
+      name: /a/, 
+      department: { $ne: 'Services' } 
+    }, { 
+      name: 1, salary: 1, department: 1 
+    }).sort({ department: 1, salary: -1 })
+    
+
+21. List all emp who do not work in the 'Business Development' department, whose names do not contain the letter 'l', and whose salary is greater than $50,000. Display their names in lowercase, ordered by salary in descending order, and limit the result to 5 entries:
+    
+    COMMAND: db.emp.find({ 
+      department: { $ne: 'Business Development' }, 
+      name: { $not: /l/ }, 
+      salary: { $gt: 50000 } 
+    }, { 
+      name: 1, salary: 1 
+    }).sort({ salary: -1 }).limit(5).map(employee => ({
+      name: employee.name.toLowerCase(),
+      salary: employee.salary
+    }))
+    
+
+22. List all emp who either work in the 'Sales' department and have a salary less than $65,000, or work in the 'Marketing' department and have a salary greater than $30,000 but not equal to $34,337. Additionally, the employee's name should either start with 'D' or end with 'o'. Display their names in lowercase, ordered by salary in ascending order, and limit the result to 5 entries:
+    
+    COMMAND: db.emp.find({ 
+      $or: [
+        { department: 'Sales', salary: { $lt: 65000 } }, 
+        { department: 'Marketing', salary: { $gt: 30000, $ne: 34337 } }
+      ], 
+      $or: [
+        { name: /^D/ }, 
+        { name: /o$/ }
+      ] 
+    }, { 
+      name: 1, salary: 1 
+    }).sort({ salary: 1 }).limit(5).map(employee => ({
+      name: employee.name.toLowerCase(),
+      salary: employee.salary
+    }))
+    
+
+23. Find all emp who work in the 'Services' department and have a salary more than $60,000, or emp who do not work in the 'Marketing
+
+' department and have a salary less than $70,000 but more than $50,000. Additionally, these emp should either have a name that starts with 'A' or their email should contain 'nps.gov'. Display their names in uppercase and emails in lowercase, ordered by name in ascending order, and limit the result to 4 entries:
+    
+    COMMAND: db.emp.find({ 
+      $or: [
+        { department: 'Services', salary: { $gt: 60000 } }, 
+        { department: { $ne: 'Marketing' }, salary: { $gt: 50000, $lt: 70000 } }
+      ], 
+      $or: [
+        { name: /^A/ }, 
+        { email: /nps.gov/ }
+      ] 
+    }, { 
+      name: 1, email: 1 
+    }).sort({ name: 1 }).limit(4).map(employee => ({
+      name: employee.name.toUpperCase(),
+      email: employee.email.toLowerCase()
+    }))
+    

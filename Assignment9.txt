@@ -1,0 +1,49 @@
+1.Find the average rating across all documents using $group with a null grouping key:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: null, average_rating: { $avg: "$rating" } } }
+    ]);
+
+2.Group documents by the RATING to see how many hotels have the same rating:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: "$rating", count: { $sum: 1 } } }
+    ]);
+
+3.Group documents by RATING and use $push to gather all ADDRESSes of hotels for each rating level:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: "$rating", addresses: { $push: "$address" } } }
+    ]);
+
+4.Group documents by RATING and include all details of the hotels (entire documents) using $$ROOT:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: "$rating", hotels: { $push: "$$ROOT" } } }
+    ]);
+
+5.Group hotels by their RATING and count the number of hotels at each rating level:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: "$rating", count: { $sum: 1 } } }
+    ]);
+
+6.Find the maximum, minimum, and average FINAL_COST of hotels grouped by CATEGORY:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: "$category", max_final_cost: { $max: "$final_cost" }, min_final_cost: { $min: "$final_cost" }, avg_final_cost: { $avg: "$final_cost" } } }
+    ]);
+
+7.Group hotels by RATING and calculate the maximum, minimum, and average BASE_COST for each rating level:**
+COMMAND: db.hotels.aggregate([
+        { $group: { _id: "$rating", max_base_cost: { $max: "$base_cost" }, min_base_cost: { $min: "$base_cost" }, avg_base_cost: { $avg: "$base_cost" } } }
+    ]);
+
+8.Show only the NAME, ADDRESS, and FINAL_COST of each hotel using $project:**
+COMMAND: db.hotels.aggregate([
+        { $project: { _id: 0, name: 1, address: 1, final_cost: 1 } }
+    ]);
+
+9.Separate each AMENITY item into its own document for further analysis using $unwind:**
+COMMAND: db.hotels.aggregate([
+        { $unwind: "$amenities" }
+    ]);
+
+10.Add a new field DISCOUNT to each document, showing the difference between BASE_COST and FINAL_COST:**
+COMMAND: db.hotels.aggregate([
+        { $addFields: { discount: { $subtract: ["$base_cost", "$final_cost"] } } }
+    ]);

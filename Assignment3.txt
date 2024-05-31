@@ -1,0 +1,51 @@
+1:
+show dbs
+Amazon       84.00 KiB
+
+2:
+use Amazon
+switched to db Amazon
+
+3:
+db.collection.find({})
+
+4:
+db.emp.find({})
+
+5:
+db.emp.findOne()
+
+6:
+db.emp.updateOne({first_name: "Sidnee"}, {$set: {age: 35}})
+
+7:
+db.emp.updateOne({first_name: "Meredeth", last_name: "Groveham"}, {$set: {salary: 55000}})
+
+8:
+db.emp.updateOne({last_name: "Nikolaus"}, {$set: {last_name: "Park"}})
+
+9:
+db.emp.updateOne({last_name: "Nikolaus"}, {$set: {last_name: "Park"}})
+
+10:
+db.emp.updateMany({age: 37}, {$set: {salary: 35000}})
+
+11:
+db.emp.updateMany({age: 28}, {$set: {last_name: "Jamme"}})
+
+12:
+db.emp.updateMany({first_name: "Kimbra"}, {$set: {middle_name: "Marie"}})
+
+13:
+db.emp.find({age: 33})
+
+14:
+db.emp.find({salary: {$gt: 50000}})
+
+15:
+db.emp.find({gender: "Female", age: 79})
+
+16:
+db.emp.find({first_name: "George", gender: "Male"})
+
+

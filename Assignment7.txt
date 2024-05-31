@@ -1,0 +1,79 @@
+1. How many hotels have a rating of 4 or higher?
+COMMAND: db.hotels.countDocuments({ rating: { $gte: 4 } });
+    
+
+2. Retrieve the names and addresses of the first 5 hotels sorted by final cost in ascending order.
+COMMAND: db.hotels.find({}, { name: 1, address: 1, _id: 0 }).sort({ final_cost: 1 }).limit(5);
+    
+
+3. Skip the first 10 hotels and then retrieve the next 5 hotels when sorted by rating in descending order.
+COMMAND: db.hotels.find({}, { name: 1, address: 1, rating: 1, _id: 0 }).sort({ rating: -1 }).skip(10).limit(5);
+    
+
+4. Find the names and ratings of hotels, sorting them in descending order of ratings and limiting the results to 10.
+COMMAND: db.hotels.find({}, { name: 1, rating: 1, _id: 0 }).sort({ rating: -1 }).limit(10);
+    
+
+5. Retrieve only the names and addresses of all hotels.
+COMMAND: db.hotels.find({}, { name: 1, address: 1, _id: 0 });
+    
+
+6. Get the list of amenities and room sizes available in hotels without including their IDs.
+COMMAND: db.hotels.find({}, { amenities: 1, room_size: 1, _id: 0 });
+    
+
+7. Display only the final cost and category for all hotels.
+COMMAND: db.hotels.find({}, { final_cost: 1, category: 1, _id: 0 });
+    
+
+8. List the names of hotels along with their images.
+COMMAND: db.hotels.find({}, { name: 1, images: 1, _id: 0 });
+    
+
+9. Find hotels where the final cost is greater than the base cost by at least 100.
+COMMAND: db.hotels.find({ $expr: { $gte: [{ $subtract: ["$final_cost", "$base_cost"] }, 100] } });
+    
+
+10. Retrieve hotels where the number of amenities is exactly 3.
+COMMAND: db.hotels.find({ amenities: { $size: 3 } });
+    
+
+11. Find hotels that offer both "WiFi" and "AC" amenities.
+COMMAND: db.hotels.find({ amenities: { $all: ["WiFi", "AC"] } });
+    
+
+12. Find hotels that have either "TV" or "AC" as amenities.
+COMMAND: db.hotels.find({ amenities: { $in: ["TV", "AC"] } });
+    
+
+13. Match hotels with a rating of 5.
+COMMAND: db.hotels.find({ rating: 5 });
+    
+
+14. Match hotels located in "Telangana".
+COMMAND: db.hotels.find({ location: "Telangana" });
+    
+
+15. Limit to the first 3 hotels when retrieving data.
+COMMAND: db.hotels.find({}).limit(3);
+    
+
+16. Limit results to the 2 highest-rated hotels.
+COMMAND: db.hotels.find({}).sort({ rating: -1 }).limit(2);
+    
+
+17. Sort hotels by their base cost in descending order.
+COMMAND: db.hotels.find({}).sort({ base_cost: -1 });
+    
+
+18. Sort hotels by name alphabetically.
+COMMAND: db.hotels.find({}).sort({ name: 1 });
+    
+
+19. Skip the top 5 hotels based on rating.
+COMMAND: db.hotels.find({}).sort({ rating: -1 }).skip(5);
+    
+
+20. Skip the first 2 hotels when displaying results.
+COMMAND: db.hotels.find({}).skip(2);
+    

@@ -1,0 +1,93 @@
+Write a MongoDB query to increase the salary of all employees in the 'Sales' department by 5%.
+
+COMMAND: db.emp.updateMany({department:"sales"}, {$mul:{salary:1.5}});
+
+How would you update the salary of the employee with id: 10 to increase it by 10%?
+
+COMMAND: db.emp.updateOne({id:10},{$mul:{salary:1.10}})
+
+Create a MongoDB query that sets the minimum salary to 35000 for all employees in the 'Engineering' department whose salary is currently below this value.
+
+COMMAND: db.emp.updateMany({ department: 'Engineering', salary: { $lt: 35000 } },{ $set: { salary: 35000 } });
+
+How can you ensure the salary of the employee with id: 5 is not more than 32000? Use a MongoDB query to adjust if necessary.
+
+COMMAND: db.emp.updateOne({ id: 5, salary: { $gt: 32000 } },{ $set: { salary: 32000 } });
+
+Write a query to remove the email field from all employees in the 'Marketing' department.
+
+COMMAND: db.emp.updateMany({ department: 'Marketing' },{ $unset: { email: "" } });
+
+
+How would you double the salary of the employee with id: 3 using a MongoDB query?
+
+COMMAND: db.emp.updateOne({ id: 3 },{ $mul: { salary: 2 } });
+
+
+Suppose the field 'department' has been decided to be renamed to 'division' across the database. How would you update the structure for the employee with id: 2?
+
+COMMAND: db.emp.updateOne({ id: 2 },{ $rename: { 'department': 'division' } });
+
+
+Write a MongoDB query to insert a new employee with id: 21, name: 'Alexa', gender: 'Female', salary: 55000, and department: 'IT' if no employee with id: 21 exists.
+
+COMMAND: db.emp.updateOne({ id: 21 },{ $setOnInsert: { id: 21, name: 'Alexa', gender: 'Female', salary: 55000, department: 'IT' } },{ upsert: true });
+
+
+How can you add 'projectAlpha' to a new array field named 'projects' for the employee with id: 4?
+
+COMMAND: db.emp.updateOne({ id: 4 },{ $push: { projects: 'projectAlpha' } });
+
+
+If you need to add multiple projects ('projectBeta', 'projectGamma') to the 'projects' array for the employee with id: 7, how would you construct the MongoDB query?
+
+COMMAND: db.emp.updateOne({ id: 7 },{ $push: { projects: { $each: ['projectBeta', 'projectGamma'] } } });
+
+
+Write a query to remove the last project from the 'projects' array for the employee with id: 4.
+
+COMMAND: db.emp.updateOne({ id: 4 },{ $pop: { projects: 1 } });
+
+
+Construct a MongoDB query to remove the first project from the 'projects' array for the employee with id: 7.
+
+COMMAND: db.emp.updateOne({ id: 7 },{ $pop: { projects: -1 } });
+
+
+How can you remove 'projectBeta' from the 'projects' array for any employee that has it listed, for instance, the employee with id: 7?
+
+COMMAND: db.emp.updateMany({ projects: 'projectBeta' },{ $pull: { projects: 'projectBeta' } });
+
+
+How do you find the employee with an id exactly equal to 5?
+
+COMMAND: db.emp.findOne({ id: 5 });
+
+
+Write a MongoDB query to find the employee whose department is exactly "Business Development".
+
+COMMAND: db.emp.findOne({ department: 'Business Development' });
+
+
+How can you find all employees whose gender is not "Male"?
+
+COMMAND: db.emp.find({ gender: { $ne: 'Male' } });
+
+
+Write a query to find all documents where the department is not "Sales".
+
+COMMAND: COMMAND: db.emp.find({ gender: { $ne: 'Sales' } });
+
+Find all employees whose salary is greater than 50000.
+
+COMMAND: db.emp.find({ salary: { $gt: 50000 } });
+
+
+How do you find all employees with an id greater than 15?
+
+COMMAND: db.emp.find({ id: { $gt: 15 } });
+
+
+Write a query to find all employees whose salary is greater than or equal to 80000.
+
+COMMAND: db.emp.find({ salary: { $gte: 80000 } });
